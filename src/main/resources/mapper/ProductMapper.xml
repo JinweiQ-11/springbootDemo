@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.ProductDao">
+  <resultMap id="ProductResultMap" type="org.example.entity.Product">
+    <result column="fdProductId" jdbcType="VARCHAR" property="fdProductId" />
+    <result column="fdProductCname" jdbcType="VARCHAR" property="fdProductCname"/>
+    <result column="fdProductEname" jdbcType="VARCHAR" property="fdProductEname"/>
+    <result column="fdProductAttr1" jdbcType="VARCHAR" property="fdProductAttr1"/>
+    <result column="fdProductAttr2" jdbcType="VARCHAR" property="fdProductAttr2"/>
+    <result column="fdProductAttr3" jdbcType="VARCHAR" property="fdProductAttr3"/>
+
+  </resultMap>
+  <select id="getProductList" resultMap="ProductResultMap">
+    select
+    FD_PRODUCT_ID as "fdProductId",
+    FD_PRODUCT_CNAME as "fdProductCname",
+    FD_PRODUCT_ENAME as "fdProductEname",
+    FD_PRODUCT_ATTR1 as "fdProductAttr1",
+    FD_PRODUCT_ATTR2 as "fdProductAttr2",
+    FD_PRODUCT_ATTR3 as "fdProductAttr3"
+    from product where 1 = 1
+    <if test="fdProductId != null and fdProductId != ''">
+      AND FD_PRODUCT_ID = #{fdProductId}
+    </if>
+    <if test="fdProductCname != null and fdProductCname != ''">
+      AND FD_PRODUCT_CNAME = #{fdProductCname}
+    </if>
+  </select>
+
+  <update id="updateProductList" parameterType="java.util.HashMap">
+    update  product
+    <set >
+      <if test="fdProductAttr1 != null">
+        FD_PRODUCT_ATTR1 = #{fdProductAttr1},
+      </if>
+      <if test="fdProductAttr2 != null">
+        FD_PRODUCT_ATTR2 = #{fdProductAttr2},
+      </if>
+      <if test="fdProductAttr3 != null">
+        FD_PRODUCT_ATTR3 = #{fdProductAttr3}
+      </if>
+    </set>
+    where FD_PRODUCT_CNAME = #{fdProductCname}
+  </update>
+</mapper>
