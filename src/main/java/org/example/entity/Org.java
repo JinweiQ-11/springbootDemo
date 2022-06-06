@@ -1,5 +1,7 @@
 package org.example.entity;
 
+
+
 /**
  * @author ：qinjinwei
  * @date ：Created in 2022/3/23 13:54
@@ -8,6 +10,7 @@ package org.example.entity;
  * @version: $
  * 组织机构表 存放部门信息
  */
+//@TableName("Org")
 public class Org {
     private String fdOrgId = " ";		/* 部门id*/
     private String fdOrgName = " ";		/* 部门名称*/

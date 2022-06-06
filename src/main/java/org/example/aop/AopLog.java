@@ -12,7 +12,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import reactor.ipc.netty.http.server.HttpServerRequest;
+//import reactor.ipc.netty.http.server.HttpServerRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletRequest;
 import java.util.HashMap;
@@ -44,6 +44,7 @@ public class AopLog {
 //        logger.info("请求参数" + request.getQueryString());
 //        logger.info("------------- 获取结束 -------------");
 //    }
+
 
 //    @AfterReturning(pointcut = "aopWebLogz()", returning = "reObject")
 //    public void doAftere(Object reObject) {
