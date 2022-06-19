@@ -40,5 +40,8 @@ http://localhost:8080/project/createProject
 }
 
 
+keytool -genkey -alias jwt -keyalg  RSA -keysize 1024 -validity 365 -keystore jwt.jks
+
+
 
 

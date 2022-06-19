@@ -4,9 +4,21 @@
     <resultMap id="UserResultMap" type="org.example.entity.User">
         <result column="userId" jdbcType="VARCHAR" property="userId" />
         <result column="loginName" jdbcType="VARCHAR" property="loginName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
     </resultMap>
     <select id="getUserList" resultMap="UserResultMap">
         select USER_ID as "userId", LOGIN_NAME as "loginName"
+        from xs_user where
+        <if test="loginName != null and loginName != ''">
+            LOGIN_NAME = #{loginName}
+        </if>
+    </select>
+    <select id="getUserListByLoginName" resultMap="UserResultMap">
+        select USER_ID as "userId",
+         LOGIN_NAME as "loginName",
+         PASSWORD as password,
+         USER_NAME as userName
         from xs_user where
         <if test="loginName != null and loginName != ''">
             LOGIN_NAME = #{loginName}

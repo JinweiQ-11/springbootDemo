@@ -46,12 +46,30 @@
 <!--      <scope>test</scope>-->
 <!--    </dependency>-->
       <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+
+<!--      <dependency>-->
+<!--          <groupId>javax.servlet</groupId>-->
+<!--          <artifactId>javax.servlet-api</artifactId>-->
+<!--          <version>3.0.1</version>-->
+<!--          <scope>provided</scope>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>javax.servlet.jsp</groupId>-->
+<!--          <artifactId>javax.servlet.jsp-api</artifactId>-->
+<!--          <version>2.2.1</version>-->
+<!--          <scope>provided</scope>-->
+<!--      </dependency>-->
+
       <dependency>
           <groupId>com.baomidou</groupId>
           <artifactId>mybatis-plus-boot-starter</artifactId>
           <version>3.4.3</version>
       </dependency>
-
+      <dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.3</version>
+      </dependency>
       <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-test</artifactId>
@@ -67,7 +85,7 @@
           <artifactId>fastjson</artifactId>
           <version>1.2.47</version>
       </dependency>
-<!--      依赖支持thymeleafhtml-->
+<!--      //依赖支持thymeleafhtml-->
       <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -140,12 +158,17 @@
 <!--          <artifactId>mybatis-spring-boot-starter</artifactId>-->
 <!--          <version>1.3.1</version>-->
 <!--      </dependency>-->
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-log4j</artifactId>
-          <version>1.3.8.RELEASE</version>
-      </dependency>
+<!--      <dependency>-->
+<!--          <groupId>org.springframework.boot</groupId>-->
+<!--          <artifactId>spring-boot-starter-log4j</artifactId>-->
+<!--          <version>1.3.8.RELEASE</version>-->
+<!--      </dependency>-->
       <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
+      <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+      </dependency>
+
       <dependency>
           <groupId>org.redisson</groupId>
           <artifactId>redisson</artifactId>
@@ -157,22 +180,29 @@
           <version>5.2.16.RELEASE</version>
       </dependency>
 
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+      <!-- jwt -->
+      <dependency>
+          <groupId>io.jsonwebtoken</groupId>
+          <artifactId>jjwt</artifactId>
+          <version>0.9.1</version>
+      </dependency>
   </dependencies>
 
   <build>
 
-<!--      <resources>-->
-<!--          <resource>-->
-<!--              <directory>src/main/resources</directory>&lt;!&ndash;资源文件的路径&ndash;&gt;-->
-<!--              <includes>-->
-<!--                  <include>**/*.properties</include>-->
-<!--                  <include>**/*.xml</include>-->
-<!--                  <include>**/*.html</include>-->
-<!--                  <include>**/*.jsp</include>-->
-<!--              </includes>-->
-<!--              &lt;!&ndash; <filtering>false</filtering>&ndash;&gt;-->
-<!--          </resource>-->
-<!--      </resources>-->
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory><!--资源文件的路径-->
+              <includes>
+                  <include>**/*</include>
+              </includes>
+               <filtering>false</filtering>
+          </resource>
+      </resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -181,10 +211,10 @@
           <version>3.1.0</version>
         </plugin>
         <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
+<!--        <plugin>-->
+<!--          <artifactId>maven-resources-plugin</artifactId>-->
+<!--          <version>3.0.2</version>-->
+<!--        </plugin>-->
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
@@ -211,16 +241,80 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
         </plugin>
+          <!--用以打war包-->
+<!--          <plugin>-->
+<!--          <groupId>org.apache.maven.plugins</groupId>-->
+<!--          <artifactId>maven-war-plugin</artifactId>-->
+<!--          <version>3.2.2</version>-->
+<!--          <configuration>-->
+<!--              <warSourceExcludes>src/main/resources/META-INF/**</warSourceExcludes>-->
+<!--              <packagingExcludes>WEB-INF/classes/META-INF/**</packagingExcludes>-->
+<!--              <webResources>-->
+<!--                  <resource>-->
+<!--                      <directory>src/main/resources/META-INF/resources</directory>-->
+<!--                      <filtering>false</filtering>-->
+<!--                      <targetPath>/</targetPath>-->
+<!--                  </resource>-->
+<!--              </webResources>-->
+<!--          </configuration>-->
+<!--      </plugin>-->
+
+
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>2.4</version>
+              <configuration>
+<!--                  <excludes>-->
+<!--                      <exclude>**/IplatMSApplication.class</exclude>-->
+<!--                      <exclude>**/application.properties</exclude>-->
+<!--                      <exclude>**/log4j2.xml</exclude>-->
+<!--                  </excludes>-->
+              </configuration>
+              <executions>
+                  <execution>
+                      <id>make-a-jar</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>jar</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-
-                  <plugin>
-                     <groupId>org.springframework.boot</groupId>
-                     <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-
+          <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>copy-resources</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>copy-resources</goal>
+                      </goals>
+                      <configuration>
+                          <resources>
+                              <resource>
+                                  <directory>src/main/webapp</directory>
+                                  <excludes>
+                                      <exclude>WEB-INF/**</exclude>
+                                  </excludes>
+                              </resource>
+                          </resources>
+                          <outputDirectory>${project.build.directory}/classes/META-INF/resources</outputDirectory>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+<!--          <plugin>-->
+<!--              <groupId>org.springframework.boot</groupId>-->
+<!--              <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--              <configuration>-->
+<!--                  <includeSystemScope>true</includeSystemScope>-->
+<!--              </configuration>-->
+<!--          </plugin>-->
       </plugins>
     </pluginManagement>
   </build>

@@ -1,6 +1,5 @@
 package org.example.configdemo;
 
-import jdk.internal.instrumentation.InstrumentationMethod;
 import org.example.annotation.EnableRedisAutoConfiguration;
 import org.example.condition.ConditionOnclass;
 import org.example.condition.myContionditon;
@@ -8,6 +7,8 @@ import org.example.entity.Org;
 import org.example.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 /**
  * @author ：qinjinwei
@@ -18,15 +19,16 @@ import org.springframework.context.annotation.*;
  */
 @Configuration
 @EnableRedisAutoConfiguration
+@ComponentScan(basePackages = {"org.example.configdemo"})
 @Import(value = {LoggerTest.class,MyimportSelector.class,MyImportBeandefinition.class})
 public class JavaConfig {
     public static void main(String[] args){
-
         ApplicationContext ac = new AnnotationConfigApplicationContext(JavaConfig.class);
-        for (String name : ac.getBeanDefinitionNames()){
-            System.out.println(name);
-        }
-        System.out.println(ac.getBean(Org.class));
+        ApplicationContext ac1 = new ClassPathXmlApplicationContext("aa.xml");
+//        for (String name : ac.getBeanDefinitionNames()){
+//            System.out.println(name);
+//        }
+        //System.out.println(ac.getBean(Org.class));
     }
 //    @Bean
 //    @Conditional(myContionditon.class) // 控制是否加载 根据方法返回值

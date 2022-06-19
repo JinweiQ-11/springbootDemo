@@ -1,8 +1,6 @@
 package org.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.commons.lang.StringUtils;
 import org.example.entity.Product;
 import org.example.entity.Project;
@@ -11,6 +9,8 @@ import org.example.service.ProductService;
 import org.example.service.ProjectService;
 import org.example.service.UserService;
 import org.example.utils.ProjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -104,6 +104,7 @@ public class ProjectController {
             result.put("status","OK");
             result.put("message","插入成功!");
         }catch (Exception e){
+            logger.error("e");
             if(e instanceof DuplicateKeyException){
                 result.put("message","项目信息重复,请检查");
             }else {

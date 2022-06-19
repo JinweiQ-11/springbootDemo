@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Hello {
-  @RequestMapping("/")
+//  @RequestMapping("/")
   public String getStart(){
     return "hello";
+  }
+  @RequestMapping("/index")
+  public String getIndex(){
+    return "index";
   }
 }
