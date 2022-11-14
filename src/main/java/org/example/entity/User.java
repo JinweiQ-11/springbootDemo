@@ -1,5 +1,7 @@
 package org.example.entity;
 
+import java.io.Serializable;
+
 /**
  * @author ：qinjinwei
  * @date ：Created in 2022/3/23 12:52
@@ -9,7 +11,7 @@ package org.example.entity;
  * 用户表
  */
 
-public class User {
+public class User implements Serializable {
     private String userId = " ";		/* 用户ID*/
     private String loginName = " ";
     private String password = " ";

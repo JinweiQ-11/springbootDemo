@@ -10,6 +10,7 @@ import java.util.Map;
 public interface IUserDao {
   public List<User> getUserList(Map<String, Object> map);
   public List<User> getUserListByLoginName(Map<String, Object> map);
+  public User getUserbyName(String name);
 }
 
 

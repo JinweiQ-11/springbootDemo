@@ -24,4 +24,15 @@
             LOGIN_NAME = #{loginName}
         </if>
     </select>
+
+    <select id="getUserbyName" resultMap="UserResultMap">
+        select USER_ID as "userId",
+        LOGIN_NAME as "loginName",
+        PASSWORD as password,
+        USER_NAME as userName
+        from xs_user where
+        <if test="loginName != null and loginName != ''">
+            LOGIN_NAME = #{name}
+        </if>
+    </select>
 </mapper>
